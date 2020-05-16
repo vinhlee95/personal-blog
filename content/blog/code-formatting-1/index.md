@@ -185,24 +185,3 @@ To bring this to the next level, you can configure this script to run with Git h
 If your peers are hesitating about using Prettier, I belive that its great features and benefits are weighty reasons for at least giving a try. And trust me, you all are gonna love it.
 
 > You don't have to worried about your peers' coding style anymore. Let's just keep writing something awesome. And let the computer handle the rest.
-
-
-
----
-## Thanks for reading this blog! And stay tuned for upcoming ones 🤩
-
-### ✍️ Written by
-
-**Vinh Le** [@vinhle95](https://twitter.com/vinhle95) 👨🏻‍💻🤓🏋️‍🏸🎾♂️🚀
-
-A hustler, lifelong learner, tech lover & software developer
-
-Say Hello 👋 on
-
-✅ [Github](https://github.com/vinhlee95)
-
-✅ [LinkedIn](https://www.linkedin.com/in/vinhlee95/)
-
-✅ [Medium](https://medium.com/@vinhle95)
-
-✅ [Personal site](https://vinhlee.com/)

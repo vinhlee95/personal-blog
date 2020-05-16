@@ -45,6 +45,12 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           }}
         />
         <footer>
+          <h3>
+            Thanks for reading this blog! And stay tuned for upcoming ones 🤩
+            <br />
+            <br />
+            👨🏻‍💻🤓🏋️‍🏸🎾♂️🚀
+          </h3>
           <Bio />
         </footer>
       </article>

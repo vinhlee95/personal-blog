@@ -74,22 +74,3 @@ If something goes wrong, the check will fail and changes will not be allowed to 
 * Bad codes suck. So don't let them sneak in your project at any moment.
 * `🚫💩lint-staged` and `🐶husky` are great tools that help us to do such prevention. We configure them to run specific commands, most likely linting and code formatting.
 * Combining with [Prettier](https://medium.com/shot-code/tooling-for-boosting-your-development-workflow-d663f7f5fd82), we have a perfect combo for our workflow 🏎
-
----
-## Thanks for reading this blog! And stay tuned for upcoming ones 🤩
-
-### ✍️ Written by
-
-**Vinh Le** [@vinhle95](https://twitter.com/vinhle95) 👨🏻‍💻🤓🏋️‍🏸🎾♂️🚀
-
-A hustler, lifelong learner, tech lover & software developer
-
-Say Hello 👋 on
-
-✅ [Github](https://github.com/vinhlee95)
-
-✅ [LinkedIn](https://www.linkedin.com/in/vinhlee95/)
-
-✅ [Medium](https://medium.com/@vinhle95)
-
-✅ [Personal site](https://vinhlee.com/)
