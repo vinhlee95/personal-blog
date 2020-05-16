@@ -8,10 +8,10 @@ module.exports = {
     description: "Vinh Le's personal blog",
     siteUrl: 'https://www.vinhlee.com',
     social: {
-			twitter: 'vinhle95',
-			medium: '@vinhle95',
-			linkedIn: 'vinhlee95',
-			github: 'vinhlee95',
+			twitter: 'https://twitter.com/vinhle95',
+			medium: 'https://medium.com/@vinhle95',
+			linkedIn: 'https://linkedin.com/in/vinhlee95',
+			github: 'https://github.com/vinhlee95',
     }
 	},
   plugins: [

@@ -1,70 +1,96 @@
-/**
- * Bio component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
+import React from 'react'
+import { StaticQuery, graphql } from 'gatsby'
+import Image from 'gatsby-image'
+import { rhythm } from '../utils/typography'
+import {Link} from '../styles';
 
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import Image from "gatsby-image"
+function Bio() {
+  return (
+    <StaticQuery
+      query={bioQuery}
+      render={data => {
+				const {
+					author: {name}, siteUrl,
+					social: { twitter, medium, linkedIn, github }
+				} = data.site.siteMetadata
+        return (
+          <div
+            style={{
+							display: 'flex',
+							borderBottom: '1px solid white',
+							marginBottom: '30px',
+							paddingBottom: '30px',
+							boxSizing: 'border-box'
+            }}
+          >
+						<Image
+              fixed={data.avatar.childImageSharp.fixed}
+              style={{
+                marginRight: rhythm(1 / 2),
+                marginBottom: 0,
+                minWidth: 50,
+                borderRadius: `100%`,
+              }}
+            />
 
-import { rhythm } from "../utils/typography"
+            <p
+							style={{
+								margin: 0,
+							}}
+						>
+              Written by <strong>{name}</strong>. Currently working as a software developer in Helsinki area, Finland.
+							<br/>
+							Learn more in my <Link href={siteUrl} target='_blank'><strong>personal site</strong></Link>.
+							<br />
+							Or hit me up on:
+							<Link
+								href={twitter} target='_blank' >
+								<strong> Twitter</strong>
+							</Link>
+							<Link
+								href={medium} target='_blank' >
+								<strong> Medium</strong>
+							</Link>
+							<Link
+								href={linkedIn} target='_blank' >
+								<strong> LinkedIn</strong>
+							</Link>
+							<Link
+								href={github} target='_blank' >
+								<strong> Github</strong>
+							</Link>
+            </p>
+          </div>
+        )
+      }}
+    />
+  )
+}
 
-const Bio = () => {
-  const data = useStaticQuery(graphql`
-    query BioQuery {
-      avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
-        childImageSharp {
-          fixed(width: 50, height: 50) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-      site {
-        siteMetadata {
-          author {
-            name
-            summary
-          }
-          social {
-            twitter
-          }
+const bioQuery = graphql`
+  query BioQuery {
+    avatar:file(absolutePath: { regex: "/profile.jpg/" }) {
+      childImageSharp {
+        fixed(width: 50, height: 50) {
+          ...GatsbyImageSharpFixed
         }
       }
     }
-  `)
-
-  const { author, social } = data.site.siteMetadata
-  return (
-    <div
-      style={{
-        display: `flex`,
-        marginBottom: rhythm(2.5),
-      }}
-    >
-      <Image
-        fixed={data.avatar.childImageSharp.fixed}
-        alt={author.name}
-        style={{
-          marginRight: rhythm(1 / 2),
-          marginBottom: 0,
-          minWidth: 50,
-          borderRadius: `100%`,
-        }}
-        imgStyle={{
-          borderRadius: `50%`,
-        }}
-      />
-      <p>
-        Written by <strong>{author.name}</strong> {author.summary}
-        {` `}
-        <a href={`https://twitter.com/${social.twitter}`}>
-          You should follow him on Twitter
-        </a>
-      </p>
-    </div>
-  )
-}
+    site {
+      siteMetadata {
+				author {
+          name
+        }
+				siteUrl
+				social {
+					twitter
+					medium
+					linkedIn
+					github
+				}
+      }
+    }
+  }
+`
 
 export default Bio
