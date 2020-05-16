@@ -12,6 +12,7 @@ const icons = {
 }
 
 export const LightTheme = styled.div`
+	margin-top: 16px;
 	padding: 0 5%;
 	font-size: 18px;
 
@@ -101,14 +102,14 @@ export class Theme extends React.Component {
 		const { theme } = this.state
 
 		const content = (
-			<div>
+			<>
 				<Toggle
 					defaultChecked={this.state.theme === 'light'}
 					onChange={this.handleChangeTheme}
 					icons={icons}
 				/>
 				{children}
-			</div>
+			</>
 		)
 
 		return(

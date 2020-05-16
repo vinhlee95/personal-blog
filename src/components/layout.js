@@ -1,5 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
+import { MdKeyboardArrowLeft } from 'react-icons/md'
+
 import { Theme } from './theme/theme'
 
 import { rhythm, scale } from "../utils/typography"
@@ -30,22 +32,14 @@ const Layout = ({ location, title, children }) => {
     )
   } else {
     header = (
-      <h3
-        style={{
-          fontFamily: `Montserrat, sans-serif`,
-          marginTop: 0,
-        }}
+      <Link
+        to={'/'}
       >
-        <Link
-          style={{
-            boxShadow: `none`,
-            color: `inherit`,
-          }}
-          to={`/`}
-        >
-          {title}
-        </Link>
-      </h3>
+        <div className='go-back-button'>
+          <MdKeyboardArrowLeft size={32} />
+          All blogs
+        </div>
+      </Link>
     )
   }
   return (
