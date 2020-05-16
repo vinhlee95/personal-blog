@@ -1,7 +1,9 @@
 ---
-title: "Tooling for boosting your development workflow - Part 1: Code formatting"
-date: "2019-09-04"
+title: "Tooling for boosting your development workflow"
+date: "2019-08-26"
 ---
+
+## Part 1: Code formatting
 If programming is just a 1-person-to-computer process, things will probably be dead simple. You write whatever you think that will work, and the computer will help you to verify.
 
 Sadly, that is not how it works most of the time. When you work in a team, your peers will need to review your codes and vice versa. Here is the time where things heat up *a little bit* 🙃
