@@ -1,5 +1,5 @@
 ---
-title: Reactive Programming with RxJS
+title: Reactive Programming with RxJS (Part 1)
 date: "2019-09-24"
 ---
 
