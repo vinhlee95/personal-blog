@@ -74,12 +74,23 @@ const Content = styled.div`
 `
 
 const saveThemeToStorage = (theme) => {
+	if(typeof window === 'undefined' || !window.localStorage) {
+		return
+	}
 	localStorage.setItem('theme', theme)
+}
+
+const getSavedTheme = () => {
+	if(typeof window === 'undefined' || !window.localStorage) {
+		return
+	}
+
+	return Number(localStorage.getItem('theme'))
 }
 
 export const Theme = ({children}) => {
 	const {light, dark} = supportedTheme
-	const savedTheme = Number(localStorage.getItem('theme'))
+	const savedTheme = getSavedTheme()
 	const [theme, setTheme] = React.useState(savedTheme || dark)
 	const [isClient, setClient] = React.useState(false)
 
