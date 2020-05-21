@@ -16,10 +16,15 @@ const supportedTheme = {
 	dark: 2
 }
 
-export const LightTheme = styled.div`
-	margin-top: 16px;
-	padding: 0 5%;
+const isLightTheme = theme => theme === supportedTheme.light
+
+const Content = styled.div`
+	padding: 5% 5% 0 5%;
 	font-size: 18px;
+  transition: background-color .2s ease-in;
+
+	background: ${({theme}) => isLightTheme(theme) ? 'white' : '#141d26'};
+	color: ${({theme}) => isLightTheme(theme) ? 'black' : '#fff'};
 
 	ul {
 		margin-bottom: 0;
@@ -28,40 +33,8 @@ export const LightTheme = styled.div`
 	.go-back-button {
 		display: flex;
 		align-items: center;
-		color: #000;
-		max-width: 120px;
-		border-radius: 10px;
-	}
-
-	@media (min-width: 768px) {
-		padding: 0 20%;
-	}
-
-	@media (min-width: 1024px) {
-		padding: 0 25%;
-	}
-`
-
-export const DarkTheme = styled.div`
-	padding: 0 5%;
-	background: #141d26;
-	color: #fff;
-	font-size: 18px;
-
-	ul {
-		margin-bottom: 0;
-	}
-
-	h3 {
-		a {
-			color: #fff;
-		}
-	}
-
-	.go-back-button {
-		display: flex;
-		align-items: center;
-		color: #fff;
+		transition: transform .2s ease-out;
+		color: ${({theme}) => isLightTheme(theme) ? '#000' : '#fff'};
 		max-width: 120px;
 		border-radius: 10px;
 	}
@@ -121,8 +94,6 @@ export const Theme = ({children}) => {
 
 	if(!isClient) return null
 	return(
-		theme === light ?
-		<LightTheme>{content}</LightTheme> :
-		<DarkTheme>{content}</DarkTheme>
+		<Content theme={theme}>{content}</Content>
 	)
 }
