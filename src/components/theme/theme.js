@@ -81,17 +81,22 @@ const saveThemeToStorage = (theme) => {
 
 export const Theme = ({children}) => {
 	const {light, dark} = supportedTheme
-	const [theme, setTheme] = React.useState(light)
+	const savedTheme = Number(localStorage.getItem('theme'))
+	const [theme, setTheme] = React.useState(savedTheme || dark)
 	const [isClient, setClient] = React.useState(false)
 
 	React.useEffect(() => {
+		const bodyBackground = theme === dark ? '#141d26' : 'white'
+		document.body.style.background = bodyBackground
+
 		if(!isClient) {
 			setClient(true)
 		}
-		if(!localStorage.getItem('theme')) {
+
+		if(!savedTheme) {
 			setGlobalTheme(light)
 		}
-	}, [])
+	}, [theme])
 
 	const toggleTheme = () => {
 		const newTheme = theme === light ? dark : light
@@ -115,7 +120,6 @@ export const Theme = ({children}) => {
 	)
 
 	if(!isClient) return null
-
 	return(
 		theme === light ?
 		<LightTheme>{content}</LightTheme> :
