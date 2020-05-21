@@ -11,6 +11,11 @@ const icons = {
 	unchecked: <FaMoon />
 }
 
+const supportedTheme = {
+	light: 1,
+	dark: 2
+}
+
 export const LightTheme = styled.div`
 	margin-top: 16px;
 	padding: 0 5%;
@@ -70,52 +75,50 @@ export const DarkTheme = styled.div`
 	}
 `
 
+const saveThemeToStorage = (theme) => {
+	localStorage.setItem('theme', theme)
+}
 
-export class Theme extends React.Component {
-	constructor(props) {
-		super(props)
-		this.handleChangeTheme = this.handleChangeTheme.bind(this)
+export const Theme = ({children}) => {
+	const {light, dark} = supportedTheme
+	const [theme, setTheme] = React.useState(light)
+	const [isClient, setClient] = React.useState(false)
 
-		this.state = {
-			theme: typeof window !== 'undefined' && window.localStorage.theme ? window.localStorage.theme : 'light'
+	React.useEffect(() => {
+		if(!isClient) {
+			setClient(true)
 		}
-	}
-
-	handleChangeTheme() {
-		const { theme } = this.state
-		let newTheme
-		if(theme === 'light') {
-			newTheme = 'dark'
-			typeof window !== 'undefined' && window.localStorage.setItem('theme', newTheme)
-			this.setState({ theme: newTheme })
-			return
+		if(!localStorage.getItem('theme')) {
+			setGlobalTheme(light)
 		}
+	}, [])
 
-		newTheme = 'light'
-		typeof window !== 'undefined' && window.localStorage.setItem('theme', newTheme)
-		this.setState({ theme: newTheme })
-
+	const toggleTheme = () => {
+		const newTheme = theme === light ? dark : light
+		setGlobalTheme(newTheme)
 	}
 
-	render() {
-		const { children } = this.props
-		const { theme } = this.state
-
-		const content = (
-			<>
-				<Toggle
-					defaultChecked={this.state.theme === 'light'}
-					onChange={this.handleChangeTheme}
-					icons={icons}
-				/>
-				{children}
-			</>
-		)
-
-		return(
-			theme === 'light' ?
-			<LightTheme>{content}</LightTheme> :
-			<DarkTheme>{content}</DarkTheme>
-		)
+	const setGlobalTheme = (theme) => {
+		setTheme(theme)
+		saveThemeToStorage(theme)
 	}
+
+	const content = (
+		<>
+			<Toggle
+				defaultChecked={theme === light}
+				onChange={toggleTheme}
+				icons={icons}
+			/>
+			{children}
+		</>
+	)
+
+	if(!isClient) return null
+
+	return(
+		theme === light ?
+		<LightTheme>{content}</LightTheme> :
+		<DarkTheme>{content}</DarkTheme>
+	)
 }
