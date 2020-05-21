@@ -26,6 +26,31 @@ const Content = styled.div`
 	background: ${({theme}) => isLightTheme(theme) ? 'white' : '#141d26'};
 	color: ${({theme}) => isLightTheme(theme) ? 'black' : '#fff'};
 
+	blockquote,
+	code {
+		color: ${({theme}) => isLightTheme(theme) ? '#000' : '#fff'};
+		background: ${({theme}) => isLightTheme(theme) ? '#f5f2f0' : 'none !important'};
+		text-shadow: none;
+		border-color: ${({theme}) => isLightTheme(theme) ? '#d9d5d2' : '#fff'};
+	}
+
+	blockquote {
+		margin: 16px 0;
+		padding: 8px;
+	}
+
+	/* Code blocks styling */
+	pre[class^='language'] {
+		background: ${({theme}) => isLightTheme(theme) ? '#f5f2f0' : '#011627'};
+		border-radius: 8px;
+		/* padding: 8px; */
+
+
+		span.token.operator {
+			background: none;
+		}
+	}
+
 	ul {
 		margin-bottom: 0;
 	}
