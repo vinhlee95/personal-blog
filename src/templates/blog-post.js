@@ -1,16 +1,20 @@
 import React from "react"
 import { graphql } from "gatsby"
+import readingTime from 'reading-time'
+import {IoMdTime} from 'react-icons/io'
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm, scale } from "../utils/typography"
 import BlogPostFooter from "./blog-post-footer"
+import {ReadingTime} from '../styles/ReadingTime'
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata.title
   const { previous, next } = pageContext
+  const {text} = readingTime(post.html)
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -31,12 +35,15 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           <p
             style={{
               ...scale(-1 / 5),
-              display: `block`,
-              marginBottom: rhythm(1),
+              marginBottom: 8
             }}
           >
             {post.frontmatter.date}
           </p>
+          <ReadingTime>
+            <IoMdTime size={16} />
+            <span>{text}</span>
+          </ReadingTime>
         </header>
         <section dangerouslySetInnerHTML={{ __html: post.html }} />
         <hr

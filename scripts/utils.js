@@ -7,6 +7,7 @@ const yaml = require('js-yaml')
 const visit = require('unist-util-visit')
 
 module.exports.transformPostFromPath = async (filePath) => {
+	console.log(filePath)
 	const frontmatter = await getFrontmatter(filePath)
 	const siteUrl = process.env.MEDIUM_CALLBACK_URL
 
