@@ -84,7 +84,17 @@ There are 3 types of policies:
 
 The best practice is to use customer managed policies over others. Because we could assure greatest security by only granting utmos required permissions for the entity to handle specific tasks. Inline policies are least recommended due to its unreusable nature, unless your scenario requires. AWS managed policies are ready-made and easy to use. However, it usually provide broad administrative for general usage and thus is not tailored for specific needs.
 
+For selecting an AWS managed policy, it is as simple as select 1 item in the list, as long as you know exactly what type of permission you are looking for. For customer managed policies, you need to be aware of 2 things:
+* Policies are written in IAM policy language. They are essentially JSON files with a list of *statements*. Each statement specifies if an *action* is *allowed* or *denied* for a particular *resource*.
+* You could use either visual editor in AWS console or writting policy JSON file [on your own](https://aws.amazon.com/blogs/security/back-to-school-understanding-the-iam-policy-grammar/) and attach it via CLI.
+
 ## TL;DR
+* IAM manages authentication and authorisation for AWS management console and AWS resources.
+* Users, groups, roles and policies are different IAM entities.
+* An IAM user could make requests to AWS services directly and has long-term access keys and credentials.
+* A group is essentially a management convenience to manage a similar permission set for multiple users.
+* An IAM role is a mean to delegate AWS resources's accesses to trusted entities such as AWS services like EC2, Lambda and even a different AWS account.
+* To grant specific permissions to an IAM entity, you need to attach a policy to that entity. A policy is a JSON file describes permissions. You could either write your own - customer managed policies, or use pre-made AWS managed policies. The former is recommended as the best practice.
 
 ## Resources
 [AWS IAM FAQs](https://aws.amazon.com/iam/faqs/)
@@ -93,3 +103,4 @@ The best practice is to use customer managed policies over others. Because we co
 
 [Creating IAM Policies - AWS Identity and Access Management](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html)
 
+[Back to School: Understanding the IAM Policy Grammar | AWS Security Blog](https://aws.amazon.com/blogs/security/back-to-school-understanding-the-iam-policy-grammar/)
