@@ -8,6 +8,7 @@ const visit = require('unist-util-visit')
 const {appendFooter} = require('./append-footer')
 const fs = require('fs')
 const path = require('path')
+const Confirm = require('prompt-confirm')
 
 module.exports.transformPostFromPath = async () => {
 	const filePath = getLatestBlogPath()
@@ -89,4 +90,14 @@ const getLatestBlogPath = () => {
 
   const latestPath = dirWithStats[0].path
   return `${blogPath}/${latestPath}/index.md`
+}
+
+module.exports.confirmPublish = (title, callback) => {
+  const confirm = new Confirm(`Are you sure to publish this article: ${title}`)
+    .run()
+    .then(answer => {
+      if(answer) {
+        callback()
+      }
+    })
 }

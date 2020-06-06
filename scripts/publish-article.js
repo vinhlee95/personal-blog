@@ -24,24 +24,26 @@ const publish = async () => {
   try {
     const {frontmatter, content} = await utils.transformPostFromPath()
 
-    client.getUser(function (err, user) {
-      if(err) {
-        throw new Error('Cannot get user. May be it is time to get new authorization token')
-      }
-
-      client.createPost({
-        userId: user.id,
-        title: frontmatter.title,
-        contentFormat: medium.PostContentFormat.MARKDOWN,
-        content,
-        publishStatus: medium.PostPublishStatus.DRAFT
-      }, function (error, post) {
-        if(error) {
-          console.error('Error in creating post by Medium client', error)
-          return
+    utils.confirmPublish(frontmatter.title, () => {
+      client.getUser(function (err, user) {
+        if(err) {
+          throw new Error('Cannot get user. May be it is time to get new authorization token')
         }
 
-        console.log('Successfully publish new draft 🚀🥂', post)
+        client.createPost({
+          userId: user.id,
+          title: frontmatter.title,
+          contentFormat: medium.PostContentFormat.MARKDOWN,
+          content,
+          publishStatus: medium.PostPublishStatus.DRAFT
+        }, function (error, post) {
+          if(error) {
+            console.error('Error in creating post by Medium client', error)
+            return
+          }
+
+          console.log('Successfully publish new draft 🚀🥂', post)
+        })
       })
     })
   } catch(error) {
