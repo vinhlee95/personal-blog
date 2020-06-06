@@ -5,11 +5,12 @@ const parse = require('remark-parse')
 const stringify = require('remark-stringify')
 const yaml = require('js-yaml')
 const visit = require('unist-util-visit')
+const {appendFooter} = require('./append-footer')
 
 module.exports.transformPostFromPath = async (filePath) => {
-	console.log(filePath)
 	const frontmatter = await getFrontmatter(filePath)
-	const siteUrl = process.env.MEDIUM_CALLBACK_URL
+	const siteUrl = process.env.BLOG_SITE_URL
+	const postUrl = siteUrl + frontmatter.path
 
 	return new Promise((resolve, reject) => {
 		new Remark()
@@ -24,6 +25,8 @@ module.exports.transformPostFromPath = async (filePath) => {
 			.use(frontmatterPlugin)
 			// converts the MAST back to markdown
 			.use(stringify)
+			// Append footer
+			.use(appendFooter, {postUrl})
 			// apply it to the file
 			.process(vfile.readSync(filePath), function(err, vfile) {
 				if (err) return reject(err)
@@ -60,7 +63,6 @@ const getFrontmatter = async (filePath) => {
         if (err) return reject(err)
         if (!frontmatter)
           return reject(new Error('No frontmatter found in markdown-AST'))
-        console.log(`Found frontmatter ...`)
         return resolve(frontmatter)
       })
   })

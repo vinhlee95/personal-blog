@@ -1,6 +1,7 @@
 ---
 title: Scan and Query in DynamoDB
 date: "2020-05-25"
+path: "dynamo-db-2"
 ---
 
 ![car racing](./assets/racing.jpg)

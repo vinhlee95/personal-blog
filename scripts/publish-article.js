@@ -19,6 +19,8 @@ client.setAccessToken(process.env.MEDIUM_TOKEN)
 
 // Constants
 const utils = require('./utils')
+
+// TODO: Change blogPath
 const blogPath = path.resolve(__dirname, '../content/blog/dynamo-db-2/index.md')
 
 const publish = async () => {
