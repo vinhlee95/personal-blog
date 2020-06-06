@@ -65,6 +65,6 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "publish-medium": "env BLOG_PATH=dynamo-db-2 node scripts/publish-article.js"
+    "publish-medium": "node scripts/publish-article.js"
   }
 }

@@ -6,8 +6,11 @@ const stringify = require('remark-stringify')
 const yaml = require('js-yaml')
 const visit = require('unist-util-visit')
 const {appendFooter} = require('./append-footer')
+const fs = require('fs')
+const path = require('path')
 
-module.exports.transformPostFromPath = async (filePath) => {
+module.exports.transformPostFromPath = async () => {
+	const filePath = getLatestBlogPath()
 	const frontmatter = await getFrontmatter(filePath)
 	const siteUrl = process.env.BLOG_SITE_URL
 	const postUrl = siteUrl + frontmatter.path
@@ -66,4 +69,24 @@ const getFrontmatter = async (filePath) => {
         return resolve(frontmatter)
       })
   })
+}
+
+const getLatestBlogPath = () => {
+  const blogPath = path.resolve(__dirname, '../content/blog')
+  const dirs = fs.readdirSync(blogPath)
+  const dirWithStats = dirs.map(path => ({
+    path,
+    ...fs.statSync(`${blogPath}/${path}`)
+  })).sort((item, nextItem) => {
+    if(item.mtimeMs === nextItem.mtimeMs) {
+      return 0
+    } else if (item.mtimeMs > nextItem.mtimeMs) {
+      return -1
+    } else {
+      return 1
+    }
+  }).filter(item => item.name !== '.DS_Store')
+
+  const latestPath = dirWithStats[0].path
+  return `${blogPath}/${latestPath}/index.md`
 }

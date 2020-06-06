@@ -22,8 +22,7 @@ const utils = require('./utils')
 
 const publish = async () => {
   try {
-    const blogPath = path.resolve(__dirname, `../content/blog/${process.env.BLOG_PATH}/index.md`)
-    const {frontmatter, content} = await utils.transformPostFromPath(blogPath)
+    const {frontmatter, content} = await utils.transformPostFromPath()
 
     client.getUser(function (err, user) {
       if(err) {
