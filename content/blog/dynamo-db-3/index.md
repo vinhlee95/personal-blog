@@ -1,7 +1,11 @@
 ---
 title: Caching in DynamoDB
 date: "2020-05-28"
+path: "dynamo-db-3"
 ---
+
+![caching computer](./assets/caching-background.jpg)
+Photo by [Federica Galli](https://unsplash.com/@fedechanw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 
 ## Caching
 Caching is an essential element in a high-performance database. AWS provide a wide range of [caching solutions](https://aws.amazon.com/caching/aws-caching/) for its services and environments. For DynamoDB, [ElasticCache](https://aws.amazon.com/elasticache/) and [Amazon DynamoDB Accelerator (DAX)](https://aws.amazon.com/dynamodb/dax/) are most preferable choices.
@@ -43,6 +47,12 @@ There is a solution to keep data in cache not too stale by adding time to live t
 Dynamo TTL is an *attribute* defines when items in a table will be deleted. To manage TTL, you will need to specify it in [Unix time](https://en.wikipedia.org/wiki/Unix_time) format for an attribute.
 
 TTL is very useful to remove data that you no longer need such as user sessions, event logs and temporary data. Process is done automatically in the background and does not affect your table at the mean time.
+
+## TL;DR
+* Caching helps in improving performance for databases of READ-instensive applications.
+* To implement caching in DynamoDB, we could use ElasticCache and DAX. ElasticCache could be front door for other database services while DAX is specifically designed for DynamoDB.
+* There are 2 types of caching strategies: lazy loading and write-through. Lazy loading only loads to cache data that application asks for while write-through syncs cache with database in every request.
+* Time to live (TTL) is an attribute in a DynamoDB table. It decides when to remove unnecessary data in the table. The process is done by DynamoDB in the backgroud.
 
 ## Resources
 [Caching Strategies - Amazon ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/Strategies.html)
