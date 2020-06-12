@@ -3,6 +3,10 @@ title: AWS IAM 101
 date: "2020-06-01"
 ---
 
+![key background](./assets/bg_key.jpg)
+
+Photo by [Michael Dziedzic](https://unsplash.com/@lazycreekimages?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/keys-lock?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+
 ## What is IAM
 IAM is an essential gate-keeper of Amazon Web Service (AWS). This is the place where we would administer authentication and authorisation for AWS's environments and services.
 
@@ -10,7 +14,7 @@ Let's imagine an use case where we want to develop a Cloud application using AWS
 
 That single, simple example alone can already tell how important IAM is in AWS ecosystem. In fact, IAM is *everywhere*. We will see, interact and configure it all across phases in development, security as well as monitoring.
 
-IAM is universal and does not apply to regions at the moment. This means we could use *global* IAM entities to adminster resources throughout all AWS supported regions.
+IAM is universal and does not apply to regions at the moment. This means we could use *global* IAM entities to administer resources throughout all AWS supported regions.
 
 ## Building blocks
 IAM consists of users, groups, roles and policy documents.
@@ -80,13 +84,13 @@ A policy is the mean to assign permissions to IAM entities(users, groups and rol
 There are 3 types of policies:
 * AWS Managed Policies: created and administered by AWS. Managed policies could be reused between IAM entities and *cannot be modified*.
 * Customer Managed Policies: created and used by own users and are reusable across entities similar to the previous one.
-* Inline policies: created by user and embded directly to *individual* user, group or role. Inline policies cannot be reused in different IAM entities as it emphasises direct 1-1 relationship between entity and the policy itself. Once the entity is deleted, inline policies attached to it get removed as well.
+* Inline policies: created by user and embedded directly to *individual* user, group or role. Inline policies cannot be reused in different IAM entities as it emphasises direct 1-1 relationship between entity and the policy itself. Once the entity is deleted, inline policies attached to it get removed as well.
 
-The best practice is to use customer managed policies over others. Because we could assure greatest security by only granting utmos required permissions for the entity to handle specific tasks. Inline policies are least recommended due to its unreusable nature, unless your scenario requires. AWS managed policies are ready-made and easy to use. However, it usually provide broad administrative for general usage and thus is not tailored for specific needs.
+The best practice is to use customer managed policies over others. Because we could assure greatest security by only granting utmost required permissions for the entity to handle specific tasks. Inline policies are least recommended due to its unreusable nature, unless your scenario requires. AWS managed policies are ready-made and easy to use. However, it usually provide broad administrative for general usage and thus is not tailored for specific needs.
 
 For selecting an AWS managed policy, it is as simple as select 1 item in the list, as long as you know exactly what type of permission you are looking for. For customer managed policies, you need to be aware of 2 things:
 * Policies are written in IAM policy language. They are essentially JSON files with a list of *statements*. Each statement specifies if an *action* is *allowed* or *denied* for a particular *resource*.
-* You could use either visual editor in AWS console or writting policy JSON file [on your own](https://aws.amazon.com/blogs/security/back-to-school-understanding-the-iam-policy-grammar/) and attach it via CLI.
+* You could use either visual editor in AWS console or writing policy JSON file [on your own](https://aws.amazon.com/blogs/security/back-to-school-understanding-the-iam-policy-grammar/) and attach it via CLI.
 
 ## TL;DR
 * IAM manages authentication and authorisation for AWS management console and AWS resources.
