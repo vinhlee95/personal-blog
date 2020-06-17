@@ -1,5 +1,5 @@
 ---
-title: Learn EC2 by deploying a NodeJS application
+title: Learn AWS EC2 by deploying a NodeJS application
 date: "2020-06-05"
 ---
 
@@ -18,11 +18,13 @@ An EC2 instance is a virtual server that could run an application program in Ama
 Ok, so there is no more cumbersome theory, let's see how EC2 look and work in action! 👨🏻‍💻😎
 
 ## Create an EC2 instance via CloudFormation template
-### Prerequisite
+### 📌 Prerequisite
 * Have an AWS account
 * Already installed AWS CLI in your local machine and add configuration for region, access key and secret key
 
-You could check if those steps are ready by checking in Terminal:
+You could refer to [AWS IAM blog](https://blog.vinhlee.com/iam/) for setup guide.
+
+You could also check if the configuration has been done by checking in Terminal:
 ```bash
 aws --version
 aws-cli/2.0.11 Python/3.7.4
