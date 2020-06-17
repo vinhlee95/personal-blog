@@ -5,6 +5,9 @@ date: "2020-06-05"
 
 # Part 1: Create and SSH to an EC2 instance
 
+![cloud server](./assets/server-small.jpg)
+Photo by [Taylor Vick](https://unsplash.com/@tvick?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/server?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+
 ## What is EC2
 Elastic Compute Cloud (EC2) is an AWS's service providing compute capacity in the cloud. To make it simple, EC2 is the environment where your front-end, back-end,... applications live and run.
 
