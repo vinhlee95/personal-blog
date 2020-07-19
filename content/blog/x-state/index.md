@@ -1,16 +1,16 @@
 ---
 title: Why State machine is awesome and learning it by building a React form
-date: "2020-06-13"
+date: "2020-07-19"
 ---
 
 ![light switch](./assets/switch-small.jpg)
 
 ## Finite state machines
-The concept of a Finite state machine is probably nothing new for all of us. It is also not a programming jargon. In fact, the behaviour of state machine can be easily observed *all around us*. Let's take a light bulb as an example.
+The concept of a Finite state machine is probably nothing new for all of us. It is even not a programming jargon. In fact, the behaviour of state machine can be easily observed *all around us*. Let's take a light bulb as an example.
 
 The light has 2 *finite states*: on and off. And its state must be *either on or off*. It is impossible to have it on and off at the same time. When it is off and we want to turn it on and vice versa, we simply press the switch on the wall. Thinking about switching on and off as *inputs* to toggle the state of the light.
 
-| A finite-state machine (Light bulb) is an abstract model that could only be in 1 state (on or off) at a time. The change from one state to another (Light 🌞 -> Dark ☽) is a *transition*. This transition happens in response to certain *inputs* (switch on or off 🎛)
+> A finite-state machine (Light bulb) is an abstract model that could only be in 1 state (on or off) at a time. The change from one state to another (Light 🌞 -> Dark ☽) is a *transition*. This transition happens in response to certain *inputs* (switch on or off 🎛)
 
 You could read more about state machine's ideas and concepts in [XState documentation](https://xstate.js.org/docs/about/concepts.html#finite-state-machines) or [Wikipedia](https://en.wikipedia.org/wiki/Finite-state_machine)
 
@@ -69,8 +69,8 @@ Though our machine at the moment is quite basic, it will be polished when we gra
 ### Connect form machine to React component
 First we need to figure out which elements of our form machine need to be bound to UI component.
 
-* Context: `email` and `password` are in form machine's context. We need to sync those two with corresponding text fields.
-* Events: send `FIELD_CHANGE` and `FIELD_BLUR` events in text fields's `onChange` and `onBlur` event handlers.
+* **Context**: `email` and `password` are in form machine's context. We need to sync those two with corresponding text fields.
+* **Events**: send `FIELD_CHANGE` and `FIELD_BLUR` events in text fields's `onChange` and `onBlur` event handlers.
 
 Our initial React form component could simply be:
 
@@ -115,24 +115,24 @@ In order to implement form state machine in React component, we could use `useMa
 import { formMachine, formOptions } from "./machine";
 export default function App() {
   const [state, send] = useMachine(formMachine, formOptions);
-	// Now we could retrieve current's state via state.value and context via state.context
-	// and send events via send method 🥂
-	...
+  // Now we could retrieve current's state via state.value and context via state.context
+  // and send events via send method 🥂
+  ...
 }
 ```
 
 Now let's retrieve email and password value and sync them with our text fields:
 ```javascript
 export default function App() {
-	...
-	const { email, password } = state.context;
-	...
-	return (
-		...
-		<input value={email} ... />
-		<input value={password} ... />
-		...
-	)
+  ...
+  const { email, password } = state.context;
+  ...
+  return (
+    ...
+    <input value={email} ... />
+    <input value={password} ... />
+    ...
+  )
 }
 ```
 
@@ -140,29 +140,29 @@ export default function App() {
 Next, we need to handle input events: `onChange` and `onBlur`:
 ```javascript
 const onChange = e => {
-	const { name, value } = e.target;
-	send({
-		type: "FIELD_CHANGE",
-		field: name,
-		value
-	});
+  const { name, value } = e.target;
+  send({
+    type: "FIELD_CHANGE",
+    field: name,
+    value
+  });
 };
 
 const onBlur = e => {
-	send({
-		type: "FIELD_BLUR",
-		field: e.target.name
-	});
+  send({
+    type: "FIELD_BLUR",
+    field: e.target.name
+  });
 };
 ```
 
-With these handers, every time text fields fire `onChange` and `onBlur` events, we *send* `FIELD_CHANGE` and `FIELD_BLUR` events to our machine. Let's handle those events in `formMachine`:
+With these handers, every time text fields fire `onChange` and `onBlur` events, we *send* events of types `FIELD_CHANGE` and `FIELD_BLUR` to our machine. Let's handle those two in `formMachine`:
 
 `machine.js`
 ```javascript
 export const formMachine = Machine({
   ...
-	context: {
+  context: {
     email: "",
     password: ""
   },
@@ -175,23 +175,23 @@ export const formMachine = Machine({
         }
       }
     },
-		dataFilling: {
-			on: {
-				FIELD_CHANGE: {
+    dataFilling: {
+      on: {
+        FIELD_CHANGE: {
           actions: "changeField"
         }
-			}
-		},
+      }
+    },
     ...
   }
 });
 
 export const formOptions = {
-	actions: {
-		changeField: assign((context, event) => ({
-			[event.field]: event.value
-		})
-	}
+  actions: {
+    changeField: assign((context, event) => ({
+      [event.field]: event.value
+    })
+  }
 }
 ```
 
@@ -209,32 +209,32 @@ Now let's handle `FIELD_BLUR` event in the machine:
 import { isEmail } from "validator";
 
 export const formMachine = Machine({
-	...,
-	dataFilling: {
-		on: {
-			...,
-			FIELD_BLUR: [
-				{ target: "emailError", cond: "isInvalidEmail" },
-				{ target: "passwordError", cond: "isInvalidPassword" }
-			]
-		}
-	},
-	emailError: {
-		on: {
-			FIELD_CHANGE: {
-				target: "dataFilling",
-				actions: "changeField"
-			}
-		}
-	},
-	passwordError: {
-		on: {
-			FIELD_CHANGE: {
-				target: "dataFilling",
-				actions: "changeField"
-			}
-		}
-	},
+  ...,
+  dataFilling: {
+    on: {
+      ...,
+      FIELD_BLUR: [
+        { target: "emailError", cond: "isInvalidEmail" },
+        { target: "passwordError", cond: "isInvalidPassword" }
+      ]
+    }
+  },
+  emailError: {
+    on: {
+      FIELD_CHANGE: {
+        target: "dataFilling",
+        actions: "changeField"
+      }
+    }
+  },
+  passwordError: {
+    on: {
+      FIELD_CHANGE: {
+        target: "dataFilling",
+        actions: "changeField"
+      }
+    }
+  },
 })
 
 
@@ -245,9 +245,9 @@ export const formOptions = {
     isInvalidPassword: (context, event) =>
       context.password.length < 6 && event.field === "password"
   },
-	actions: {
-		...
-	}
+  actions: {
+    ...
+  }
 };
 ```
 
@@ -259,23 +259,23 @@ Now that we have `emailError` and `passwordError` state in place, let's display 
 `App.js`
 ```javascript
 export default function App() {
-	...
-	const hasEmailError = state.matches("emailError");
-	const hasPasswordError = state.matches("passwordError");
-	...
+  ...
+  const hasEmailError = state.matches("emailError");
+  const hasPasswordError = state.matches("passwordError");
+  ...
 
-	return (
-		...
-		{hasEmailError && (
-			<span style={styles.errorMessage}>Invalid email</span>
-		)}
-		...
-		{hasPasswordError && (
-			<span style={styles.errorMessage}>
-				Password must be at lest 6 character long
-			</span>
-		)}
-	);
+  return (
+    ...
+    {hasEmailError && (
+      <span style={styles.errorMessage}>Invalid email</span>
+    )}
+    ...
+    {hasPasswordError && (
+      <span style={styles.errorMessage}>
+        Password must be at lest 6 character long
+      </span>
+    )}
+  );
 }
 ```
 
@@ -285,8 +285,8 @@ We could send a `FORM_SUBMIT` event when submitting the form:
 ```javascript
 ...
 const onSubmit = e => {
-	e.preventDefault();
-	send("FORM_SUBMIT");
+  e.preventDefault();
+  send("FORM_SUBMIT");
 };
 ...
 ```
@@ -294,14 +294,14 @@ And handle the event in form machine:
 `machine.js`
 ```javascript
 dataFilling: {
-	on: {
-		...,
-		FORM_SUBMIT: [
-			{ target: "emailError", cond: "isInvalidEmail" },
-			{ target: "passwordError", cond: "isInvalidPassword" },
-			{ target: "pending" }
-		]
-	}
+  on: {
+    ...,
+    FORM_SUBMIT: [
+      { target: "emailError", cond: "isInvalidEmail" },
+      { target: "passwordError", cond: "isInvalidPassword" },
+      { target: "pending" }
+    ]
+  }
 }
 ```
 
@@ -310,23 +310,23 @@ We first need to make sure user has entered valid credentials. Otherwise, we cha
 We need to update our guard conditions as well:
 ```javascript
 guards: {
-	isInvalidEmail: (context, event) => {
-		if (event.field) {
-			return !isEmail(context.email) && event.field === "email";
-		} // This is to make sure we move the form to correct error state
-		// (either email or password depending on which field got blurred)
+  isInvalidEmail: (context, event) => {
+    if (event.field) {
+      return !isEmail(context.email) && event.field === "email";
+    } // This is to make sure we move the form to correct error state
+    // (either email or password depending on which field got blurred)
 
-		return !isEmail(context.email) // This is used in form submission
-		// we want to make sure both fields are valid,
-		// regardless of which got blurred;
-	},
-	// Same thing with password
-	isInvalidPassword: (context, event) => {
-		if (event.field) {
-			return context.password.length < 6 && event.field === "password";
-		}
-		return context.password.length < 6;
-	}
+    return !isEmail(context.email) // This is used in form submission
+    // we want to make sure both fields are valid,
+    // regardless of which got blurred;
+  },
+  // Same thing with password
+  isInvalidPassword: (context, event) => {
+    if (event.field) {
+      return context.password.length < 6 && event.field === "password";
+    }
+    return context.password.length < 6;
+  }
 }
 ```
 
@@ -347,21 +347,21 @@ After `FORM_SUBMIT` event was sent to the machine with valid field values, the s
 `machine.js`
 ```javascript
 export const formMachine = Machine({
-	...
-	pending: {
-		invoke: {
-			src: "login",
-			onDone: "resolved",
-			onError: "rejected"
-		}
-	},
-	resolved: {},
+  ...
+  pending: {
+    invoke: {
+      src: "login",
+      onDone: "resolved",
+      onError: "rejected"
+    }
+  },
+  resolved: {},
   rejected: {}
 })
 
 export const formOptions = {
-	...
-	services: {
+  ...
+  services: {
     login: (context, event) => mockApiLogin()
   }
 }
@@ -380,6 +380,6 @@ This UI component is thus resilient to logic changes, as we move from bottom-up 
 ## TL;DR
 * By using finite state machine, we assure that our models such as UI components could only be in 1 state at a time. In a particular state, we also explicitly handle certain types of events and trigger specific actions for each event.
 * Using state machine calls for a shift in our mental models in handling state. There is no more bottom-up state handlers, where we update the state in event handler.
-* To add a finite state machine to your model, you first need to definte states that the model could be in. Then for every events sent to the machine, we specify next state along with actions that we want the event to trigger
+* To add a finite state machine to your model, you first need to definte states that the model could be in. Then for every events sent to the machine, we specify next state along with actions that we want the event to trigger.
 * Since the state and all events, actions are handled in the machine, UI components are more resilient on logics changes.
-* You could find all the codes in this [CodeSandbox project](https://codesandbox.io/s/funny-grothendieck-wkfj5)
+* You could find all the codes in this [CodeSandbox project](https://codesandbox.io/s/funny-grothendieck-wkfj5).
