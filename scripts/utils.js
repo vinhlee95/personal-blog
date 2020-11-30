@@ -87,7 +87,6 @@ const getLatestBlogPath = () => {
       return 1
     }
   }).filter(item => item.name !== '.DS_Store')
-
   const latestPath = dirWithStats[0].path
   return `${blogPath}/${latestPath}/index.md`
 }
