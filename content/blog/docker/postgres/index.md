@@ -3,6 +3,9 @@ title: Running Django + PostgreSQL containers and persisting data with Docker
 date: "2020-11-28"
 ---
 
+![container background](./assets/container_background.jpg)
+Photo by [frank mckenna](https://unsplash.com/@frankiefoto?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/container?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText)
+
 ## From Node.js to Django
 I have been picking up Python and Django for a while. In overall, Django seems to be pretty powerful with a loads of utilities.
 
@@ -17,7 +20,7 @@ Our main goal is to:
 * Use Docker to get the services up and running quickly without any hassle of configuring and debugging environment-related issues.
 * Persist and access data in PostgreSQL container
 
-## Presequites
+## Prerequisites
 Basic knowledge of:
 * Django and Python
 * PostgreSQL
